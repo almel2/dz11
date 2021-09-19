@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Store{% endblock %}
+
+{% block content %}
+    <h1 align="center"><a href="{% url 'home' %}"><< Главная страница</a></h1>
+
+    <div>
+
+        <table align="center" cellspacing="4px" cellpadding="10px">
+            <tr>
+                <td>ID</td>
+                <td align="center">Магазин</td>
+                <td>Книги</td>
+                <td>Ссылка</td>
+            </tr>
+
+
+            {% for store in store %}
+                <tr>
+                    <td>{{ store.id }}</td>
+                    <td>{{ store.name }}</td>
+                    <td align="center">{{ store.books.count }}</td>
+                    <td><a href="{% url 'store_detail' pk=store.id %}">подробнее</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Издатель {{ pk.name }}{% endblock %}
+
+{% block content %}
+    <h1 align="center"><a href="{% url 'book' %}"> << Вернутся</a></h1>
+    <table align="center" cellpadding="2">
+        <tr>
+            <td>Автор</td>
+            <td>{{ pk.name }}</td>
+        </tr>
+        <tr>
+            <td>Книги</td>
+            <td>
+                {% for book in pk.book_set.all %}
+                    <p>{{ book }}</p>
+                {% endfor %}
+            </td>
+        </tr>
+
+    </table>
+
+{% endblock %}

@@ -23,10 +23,10 @@ class BookAdmin(admin.ModelAdmin):
     date_hierarchy = 'pubdate'
     fieldsets = (('Book info',
                   {'fields': ('name', 'pages', 'price')}),
-                 ('★★★★★',{'fields': ('rating',)}),
-                 ('Publisher',{'fields': ('publisher',)}),
-                 ('Date',{'fields': ('pubdate',)}))
-    inlines = [BookAuthorInline,]
+                 ('★★★★★', {'fields': ('rating',)}),
+                 ('Publisher', {'fields': ('publisher',)}),
+                 ('Date', {'fields': ('pubdate',)}))
+    inlines = [BookAuthorInline, ]
     ordering = ['name', 'price']
     search_fields = ['name', 'author']
 
@@ -36,11 +36,10 @@ class BookInline(admin.TabularInline):
     max_num = 3
 
 
-
 @admin.register(Publisher)
 class PublisherAdmin(admin.ModelAdmin):
     list_display = ('name',)
-    inlines = [BookInline,]
+    inlines = [BookInline, ]
     ordering = ['name']
 
 
@@ -48,6 +47,3 @@ class PublisherAdmin(admin.ModelAdmin):
 class StoreAdmin(admin.ModelAdmin):
     list_display = ('name',)
     ordering = ['name']
-
-
-

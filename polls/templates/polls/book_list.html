@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+
+
+{% block title %}Book_list{% endblock %}
+
+{% block content %}
+    <h1 align="center"><a href="{% url 'home' %}"><< Главная страница</a></h1>
+
+    <div>
+
+        <table align="center"  cellspacing="4px" cellpadding="10px">
+        <tr >
+                <td>id</td>
+                <td align="center">Название книги</td>
+                <td>Страниц</td>
+                <td align="center">Цена</td>
+                <td>Дата публикации</td>
+                <td>Ссылка</td>
+            </tr>
+        {% for book in books %}
+            <tr>
+                <td>{{ book.id }}</td>
+                <td>{{ book.name  }}</td>
+                <td align="center">{{ book.pages }}</td>
+                <td>{{ book.price }}</td>
+                <td>{{ book.pubdate }}</td>
+                <td><a href="{% url 'book_detail' pk=book.id %}">подробнее</a></td>
+
+
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+{% endblock %}

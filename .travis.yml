@@ -6,5 +6,4 @@ install:
 before_script:
   - python manage.py migrate
 script:
-  - flake8 .
   - python manage.py test

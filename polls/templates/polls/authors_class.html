@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Авторы{% endblock %}
+
+{% block content %}
+    <h1 align="center"><a href="{% url 'home' %}"><< Главная страница</a></h1>
+    <table align="center"  cellspacing="4px" cellpadding="10px">
+               <tr>
+            <td>ID</td>
+            <td align="center">Автор</td>
+            <td>Возраст</td>
+
+
+        </tr>
+        {% for instance in object_list %}
+            <tr>
+                <td>{{ instance.id }}</td>
+                <td>{{ instance.name  }}</td>
+                <td align="center">{{ instance.book_set.count  }}</td>
+
+
+            </tr>
+        {% endfor %}
+    </table>
+    <p></p>
+<div align="center" class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; первая &laquo;</a>
+            <a href="?page={{ page_obj.previous_page_number }}">пред.</a>
+        {% endif %}
+
+        <span class="current">
+            Страница {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">след.&raquo;</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">последняя &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

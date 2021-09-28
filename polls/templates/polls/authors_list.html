@@ -23,6 +23,8 @@
                 <td>{{ author.age  }}</td>
                 <td align="center">{{ author.book_set.count  }}</td>
                 <td><a href="{% url 'authors_detail' pk=author.id %}">подробнее</a></td>
+                <td><a href="{% url 'author-update' pk=author.id %}">отредактировать</a></td>
+                <td><a href="{% url 'author-delete' pk=author.id %}">удалить</a></td>
             </tr>
             {% endfor %}
         </table>

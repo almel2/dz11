@@ -1,9 +1,13 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Author(models.Model):
     name = models.CharField(max_length=100)
     age = models.IntegerField()
+
+    def get_absolute_url(self):
+        return reverse('authors_detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return f"{self.name}, {self.age}"
@@ -12,6 +16,7 @@ class Author(models.Model):
 
 class Publisher(models.Model):
     name = models.CharField(max_length=300)
+
 
     def __str__(self):
         return f"{self.name}"

@@ -1,0 +1,37 @@
+{% block content %}
+    Number of stores - {{ q.id__count }}
+    <h1 align="center">Store list</h1>
+    <h1 align="center"><a href="{% url 'home' %}"><< Главная страница</a></h1>
+    <table align="center" cellspacing="4px" cellpadding="10px">
+    <tr>
+        <td>ID</td>
+        <td align="center">Магазин</td>
+        <td>Книги</td>
+        <td>Ссылка</td>
+    </tr>
+    {% for i in object_list %}
+        <tr>
+            <td>{{ i.id }}</td>
+            <td>{{ i.name }}</td>
+            <td align="center">{{ i.books.count }}</td>
+            <td><a href="{% url 'store_detail' pk=i.id %}">подробнее</a></td>
+        </tr>
+    {% endfor %}
+    <div align="center" class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; первая &laquo;</a>
+            <a href="?page={{ page_obj.previous_page_number }}">пред.</a>
+        {% endif %}
+
+        <span class="current">
+            Страница {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">след.&raquo;</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">последняя &raquo;</a>
+        {% endif %}
+    </span>
+    </div>
+{% endblock %}

@@ -39,5 +39,7 @@ class Store(models.Model):
     name = models.CharField(max_length=300)
     books = models.ManyToManyField(Book)
 
+
+
     def __str__(self):
         return f"{self.name}"

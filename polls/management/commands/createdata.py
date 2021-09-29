@@ -23,13 +23,13 @@ class Command(BaseCommand):
         author_ids = Author.objects.values_list("id", flat=True)
 
         pub_list = []
-        for i in range(100):
+        for i in range(1000):
             pub_list.append(Publisher(name=faker.company()))
         Publisher.objects.bulk_create(pub_list)
         publishers_ids = Publisher.objects.values_list("id", flat=True)
 
         books_lsit = []
-        for i in range(100):
+        for i in range(1000):
             books_lsit.append(
                 Book(
                     name=faker.text(max_nb_chars=15),
@@ -48,7 +48,7 @@ class Command(BaseCommand):
             book.authors.add(*book_auth_ids)
 
         store_list = []
-        for i in range(100):
+        for i in range(1000):
             store_list.append(Store(name=faker.company()))
         Store.objects.bulk_create(store_list)
 

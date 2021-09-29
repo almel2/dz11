@@ -1,10 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Count
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
+from django.views.decorators.cache import cache_page
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
-from polls.models import  Author, Book, Publisher, Store
 
+from polls.models import Author, Book, Publisher, Store
 
 
 def index(request):
@@ -43,7 +45,7 @@ def publisherdetail(request, pk):
     pk = Publisher.objects.prefetch_related('book_set').get(pk=pk)
     return render(request, 'polls/publisher_detail.html', context={'pk': pk})
 
-
+@cache_page(20)
 def storelist(request):
     store_query = Store.objects.prefetch_related('books').all()
     return render(request, "polls/store_list.html",
@@ -53,8 +55,6 @@ def storelist(request):
 def storegetail(request, pk):
     pk = Store.objects.prefetch_related('books').get(pk=pk)
     return render(request, 'polls/store_detail.html', context={'pk': pk})
-
-
 
 
 class AuthorCreate(LoginRequiredMixin, CreateView):
@@ -74,16 +74,22 @@ class AuthorDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('author')
     login_url = '/admin/'
 
+
 class AuthorListView(ListView):
     model = Author
     template_name = "polls/authors_class.html"
     queryset = Author.objects.prefetch_related('book_set').all()
-    paginate_by = 13
+    paginate_by = 100
 
 
+class StoreListView(ListView):
+    model = Store
+    template_name = "polls/store_class.html"
+    queryset = Store.objects.all().annotate(num=Count('books')).order_by('pk')
+    paginate_by = 500
 
-
-
-
-
-
+    def get_context_data(self, *args, **kwargs):
+        q = Store.objects.all().aggregate(Count('id'))
+        contex = super().get_context_data()
+        contex['q'] = q
+        return contex

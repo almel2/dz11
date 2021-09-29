@@ -7,25 +7,25 @@
 
     <div>
 
-        <table align="center"  cellspacing="4px" cellpadding="10px">
-               <tr>
-            <td>ID</td>
-            <td align="center">Автор</td>
-            <td>Возраст</td>
-            <td>Книги</td>
-            <td>Ссылка</td>
-
-        </tr>
-        {% for author in authors %}
+        <table align="center" cellspacing="4px" cellpadding="10px">
             <tr>
-                <td>{{ author.id  }}</td>
-                <td>{{ author.name  }}</td>
-                <td>{{ author.age  }}</td>
-                <td align="center">{{ author.book_set.count  }}</td>
-                <td><a href="{% url 'authors_detail' pk=author.id %}">подробнее</a></td>
-                <td><a href="{% url 'author-update' pk=author.id %}">отредактировать</a></td>
-                <td><a href="{% url 'author-delete' pk=author.id %}">удалить</a></td>
+                <td>ID</td>
+                <td align="center">Автор</td>
+                <td>Возраст</td>
+                <td>Книги</td>
+                <td>Ссылка</td>
+
             </tr>
+            {% for author in authors %}
+                <tr>
+                    <td>{{ author.id }}</td>
+                    <td>{{ author.name }}</td>
+                    <td>{{ author.age }}</td>
+                    <td align="center">{{ author.book_set.count }}</td>
+                    <td><a href="{% url 'authors_detail' pk=author.id %}">подробнее</a></td>
+                    <td><a href="{% url 'author-update' pk=author.id %}">отредактировать</a></td>
+                    <td><a href="{% url 'author-delete' pk=author.id %}">удалить</a></td>
+                </tr>
             {% endfor %}
         </table>
     </div>

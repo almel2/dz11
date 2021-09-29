@@ -3,7 +3,7 @@ from django.views.decorators.cache import cache_page
 
 from polls import views
 from polls.views import authordetail, authorslist, index, bookdetail, booklist, publisherdetail, publisherlist, \
-    storegetail, storelist, AuthorCreate, AuthorUpdate, AuthorDelete, AuthorListView
+    storegetail, storelist, AuthorCreate, AuthorUpdate, AuthorDelete, AuthorListView, StoreListView
 
 urlpatterns = [
     path("", index, name='home'),
@@ -23,5 +23,6 @@ urlpatterns = [
     path('author/<int:pk>/', AuthorUpdate.as_view(), name='author-update'),
     path('author/<int:pk>/delete/', AuthorDelete.as_view(), name='author-delete'),
 
-    path('authors_list/', cache_page(60)(AuthorListView.as_view()), name='authors-list'),
+    path('authors_list/', cache_page(10)(AuthorListView.as_view()), name='authors-list'),
+    path('store_list/', cache_page(10)(StoreListView.as_view()), name='store-list')
 ]
